@@ -1,0 +1,59 @@
+{
+  "allOf": [
+    {
+      "$ref": "./meta.v1.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "description": "The number of the current page of results",
+          "example": "3"
+        },
+        "lastPage": {
+          "type": "integer",
+          "description": "The last available page of results",
+          "example": "10",
+          "minimum": 1
+        },
+        "previousPage": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The previous page of results relative to this one",
+          "example": "2"
+        },
+        "nextPage": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "The next page of results relative to this one",
+          "example": "4"
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Position of the current search results in number of items from the beginning using defined or default sort order.",
+          "example": "200",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "default": 100,
+          "example": "200",
+          "minimum": 0,
+          "maximum": 1000,
+          "description": "The maximum number of search results being displayed"
+        },
+        "total": {
+          "type": "integer",
+          "example": "487",
+          "minimum": 0,
+          "description": "The total number of results found for this search"
+        }
+      }
+    }
+  ]
+}

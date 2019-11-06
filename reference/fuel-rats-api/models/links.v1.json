@@ -1,0 +1,9 @@
+{
+  "title": "links",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    }
+  }
+}

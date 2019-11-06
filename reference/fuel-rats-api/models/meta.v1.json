@@ -1,0 +1,27 @@
+{
+  "title": "meta",
+  "type": "object",
+  "properties": {
+    "rateLimitTotal": {
+      "type": "integer",
+      "example": "100",
+      "description": "The total of number requests per hour for the current client"
+    },
+    "rateLimitRemaining": {
+      "type": "number",
+      "default": 20,
+      "description": "The remaining number of requests allowed for this client for the hour"
+    },
+    "rateLimitReset": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2019-09-30T14:00:00+00",
+      "description": "Timestamp for when rate limit usage will reset (top of the next hour)"
+    },
+    "apiVersion": {
+      "type": "string",
+      "example": "3.0",
+      "description": "The current Fuel Rats API version\n"
+    }
+  }
+}

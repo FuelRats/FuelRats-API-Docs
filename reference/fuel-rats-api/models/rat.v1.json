@@ -1,0 +1,9 @@
+{
+  "title": "Rat",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    }
+  }
+}
