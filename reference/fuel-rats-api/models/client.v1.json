@@ -1,0 +1,9 @@
+{
+  "title": "Client",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    }
+  }
+}

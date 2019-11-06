@@ -1,0 +1,36 @@
+{
+  "title": "searchlinks",
+  "type": "object",
+  "properties": {
+    "self": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://api.fuelrats.com/users?page[size]=100&page[number]=4",
+      "description": "JSONAPI cursor for the current page"
+    },
+    "first": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://api.fuelrats.com/users?page[size]=100&page[number]=1",
+      "description": "JSONAPI cursor for the first page"
+    },
+    "last": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://api.fuelrats.com/users?page[size]=100&page[number]=10",
+      "description": "JSONAPI cursor for the last page"
+    },
+    "previous": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://api.fuelrats.com/users?page[size]=100&page[number]=3",
+      "description": "JSONAPI cursor for the next page"
+    },
+    "next": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://api.fuelrats.com/users?page[size]=100&page[number]=5",
+      "description": "JSONAPI cursor for the next page"
+    }
+  }
+}

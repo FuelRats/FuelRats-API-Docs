@@ -2,8 +2,11 @@
   "title": "links",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string"
+    "self": {
+      "type": "string",
+      "format": "uri",
+      "example": "https://api.fuelrats.com/users/578431ff-fa88-410d-b4b0-5889f622f860",
+      "description": "JSONAPI cursor for the current resource"
     }
   }
 }

@@ -24,8 +24,14 @@ paths:
                   meta:
                     $ref: ./models/searchmeta.v1.json
                   links:
-                    type: string
+                    $ref: ./models/searchlinks.v1.json
                   included:
-                    type: string
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: ./models/rat.v1.json
+                        - $ref: ./models/nickname.v1.json
+                        - $ref: ./models/group.v1.json
+                        - $ref: ./models/client.v1.json
 components:
   schemas: {}

@@ -1,0 +1,28 @@
+{
+  "title": "resource",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "578431ff-fa88-410d-b4b0-5889f622f860"
+    },
+    "type": {
+      "type": "string",
+      "example": "users"
+    },
+    "attributes": {
+      "type": "object"
+    },
+    "relationships": {
+      "type": "object"
+    },
+    "links": {
+      "$ref": "./links.v1.json"
+    }
+  },
+  "required": [
+    "id",
+    "type"
+  ]
+}

@@ -1,12 +1,100 @@
 {
-  "title": "User",
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "./resource.v1.json"
     },
-    "": {
-      "type": "string"
+    {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "status": {
+              "type": "string",
+              "default": "active",
+              "enum": [
+                "active",
+                "inactive",
+                "legacy",
+                "deactivated"
+              ]
+            },
+            "suspended": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time",
+              "example": "2019-10-11T13:55:00+00"
+            },
+            "frontierId": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "avatar": {
+              "type": "boolean"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2019-10-11T13:55:00+00"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2019-10-11T13:55:00+00"
+            }
+          },
+          "required": [
+            "email",
+            "status"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "rats": {
+              "type": "array",
+              "items": {
+                "$ref": "./relationship-many.v1.json"
+              }
+            },
+            "nicknames": {
+              "type": "array",
+              "items": {
+                "$ref": "./relationship-many.v1.json"
+              }
+            },
+            "displayRat": {
+              "$ref": "./relationship.v1.json"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "./relationship-many.v1.json"
+              }
+            },
+            "clients": {
+              "type": "array",
+              "items": {
+                "$ref": "./relationship-many.v1.json"
+              }
+            }
+          }
+        },
+        "links": {
+          "$ref": "./links.v1.json"
+        }
+      }
     }
-  }
+  ]
 }

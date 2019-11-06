@@ -1,0 +1,30 @@
+{
+  "title": "relationship-many",
+  "type": "object",
+  "properties": {
+    "links": {
+      "$ref": "./links.v1.json"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "578431ff-fa88-410d-b4b0-5889f622f860"
+          },
+          "type": {
+            "type": "string",
+            "example": "rats"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ]
+      }
+    }
+  }
+}
