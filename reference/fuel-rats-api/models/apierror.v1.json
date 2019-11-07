@@ -1,0 +1,65 @@
+{
+  "title": "apierror",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "example": "475f7628-6e8b-4c12-b6af-e6596800b55f",
+      "description": "Unique identifier for the error, should be included in bug reports to the API team so it can be cross referenced with logs"
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "about": {
+          "type": "string",
+          "example": "https://httpstatuses.com/422",
+          "description": "A web link to a resource with more information about the error"
+        }
+      }
+    },
+    "status": {
+      "type": "integer",
+      "description": "HTTP status code for the error",
+      "example": "422"
+    },
+    "code": {
+      "type": "string",
+      "description": "Identifier code for the error",
+      "example": "unsupported_media_type"
+    },
+    "title": {
+      "type": "string",
+      "example": "Unsupported Media Type",
+      "description": "Human readable title for this error"
+    },
+    "detail": {
+      "type": "string",
+      "description": "Human readable extended message about this error",
+      "example": "The request could not be completed due to a conflcit with the current state of the target resource."
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "pointer": {
+          "type": "string",
+          "example": "/data/attributes/name",
+          "description": "If the error is a client error caused by an invalid entity in the request object a JSON pointer to it will be provided here."
+        },
+        "parameter": {
+          "type": "string",
+          "example": "limit",
+          "description": "If the error is a client error caused by a query parameter the name of the query parameter will be provided here."
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "status",
+    "code",
+    "title",
+    "detail",
+    "source"
+  ]
+}

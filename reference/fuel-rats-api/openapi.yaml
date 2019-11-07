@@ -14,7 +14,7 @@ servers:
 paths:
   /users:
     get:
-      summary: Your GET endpoint
+      summary: Search Users
       tags: []
       responses:
         '200':
@@ -41,9 +41,6 @@ paths:
                         - $ref: ./models/group.v1.json
                         - $ref: ./models/client.v1.json
       parameters:
-        - schema:
-            type: string
-          in: header
         - schema:
             type: string
           in: query
@@ -90,16 +87,13 @@ paths:
           in: query
           name: include
           description: 'Sets the relationships for which related data should be included in results, by default all relationships for the object have their data included.'
-        - schema:
-            type: string
-          in: query
       security:
         - OAuth:
             - user.read
-      description: Search for a user
+      description: 'Searches the list of users based on parameters, only available to admins with the user.read permission'
       operationId: Users.search
     post:
-      summary: ''
+      summary: Create User
       responses:
         '200':
           description: OK
@@ -107,7 +101,21 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: {}
+                properties:
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: ./models/rat.v1.json
+                        - $ref: ./models/nickname.v1.json
+                        - $ref: ./models/group.v1.json
+                        - $ref: ./models/client.v1.json
+                  links:
+                    $ref: ./models/links.v1.json
+                  meta:
+                    $ref: ./models/meta.v1.json
+                  data:
+                    $ref: ./models/user.v1.json
       description: Create a new user. This endpoint is for admin purposes. Otherwise registering users should be done manually via the fuelrats.com website.
       security:
         - OAuth:
@@ -154,7 +162,7 @@ paths:
           maxLength: 0
         required: true
     get:
-      summary: Your GET endpoint
+      summary: View a User
       tags: []
       responses:
         '200':
@@ -182,11 +190,32 @@ paths:
         - OAuth:
             - user.read
             - user.read.me
+      description: Views a specific user by id. Requires user.read permission if viewing anyone except yourself.
+      operationId: User.read
     put:
-      summary: ''
+      summary: Edit a User
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: ./models/rat.v1.json
+                        - $ref: ./models/nickname.v1.json
+                        - $ref: ./models/group.v1.json
+                        - $ref: ./models/client.v1.json
+                  links:
+                    $ref: ./models/links.v1.json
+                  meta:
+                    $ref: ./models/meta.v1.json
+                  data:
+                    $ref: ./models/user.v1.json
       requestBody:
         content:
           application/json:
@@ -195,6 +224,7 @@ paths:
               properties:
                 data:
                   type: object
+                  description: Data object capable of holding arbitrary meta information
                 email:
                   type: string
                   format: email
@@ -220,14 +250,18 @@ paths:
       security:
         - OAuth:
             - user.write
+      description: 'Directly edits a user, only available to admins with the user.write permission.'
+      operationId: User.update
     delete:
-      summary: ''
+      summary: Delete a User
       responses:
         '204':
           description: No Content
       security:
         - OAuth:
             - user.delete
+      description: 'Delete a user, only available to admins with the user.delete permission.'
+      operationId: User.delete
   '/users/{userId}/image':
     parameters:
       - type: string
@@ -235,7 +269,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get the uploaded avatar for a user
       tags: []
       responses:
         '200':
@@ -245,11 +279,55 @@ paths:
               schema:
                 type: object
                 properties: {}
+        '204':
+          description: No Content
+      description: "Returns the jpeg image of the user's avatar if available, returns 204 if the user has no uploaded avatar"
+      operationId: User.image
     post:
-      summary: ''
+      summary: Upload an Avatar
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: ./models/rat.v1.json
+                        - $ref: ./models/nickname.v1.json
+                        - $ref: ./models/group.v1.json
+                        - $ref: ./models/client.v1.json
+                  links:
+                    $ref: ./models/links.v1.json
+                  meta:
+                    $ref: ./models/meta.v1.json
+                  data:
+                    $ref: ./models/user.v1.json
+        '413':
+          description: Request Entity Too Large
+          content:
+            application/json:
+              schema:
+                type: object
+        '415':
+          description: Unsupported Media Type
+      description: 'Uploads a user avatar, requires user.write for anyone except yourself'
+      security:
+        - OAuth:
+            - user.write
+            - user.write.me
+      requestBody:
+        content:
+          image/jpeg:
+            schema:
+              type: object
+              properties: {}
+        description: Upload image data via POST file upload
+      operationId: User.setimage
   '/users/{userId}/certificate':
     parameters:
       - type: string
@@ -257,7 +335,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Generate and download Certificate
       tags: []
       responses:
         '200':
@@ -269,6 +347,12 @@ paths:
                 properties: {}
               examples:
                 example-1: {}
+      operationId: User.certificate
+      security:
+        - OAuth:
+            - user.write
+            - user.write.me
+      description: "Generates an SSL certificate, adds it to the user's IRC account for authentication, and serves it for download in the request body."
   '/users/{userId}/password':
     parameters:
       - schema:
@@ -277,7 +361,7 @@ paths:
         in: path
         required: true
     put:
-      summary: ''
+      summary: Change Password
       responses:
         '200':
           description: OK
@@ -285,6 +369,13 @@ paths:
         - OAuth:
             - user.write
             - user.write.me
+      operationId: User.setpassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
   '/users/{userId}/relationships/rats':
     parameters:
       - type: string
@@ -292,31 +383,31 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: "Get a User's Rats"
       tags: []
       responses: {}
     post:
-      summary: ''
+      summary: Add Rats to a User
       responses:
         '200':
           description: OK
     patch:
-      summary: ''
+      summary: "Update a User's list of rats"
       responses:
         '200':
           description: OK
     delete:
-      summary: ''
+      summary: Remove rats from a User
       responses:
         '200':
           description: OK
   '/users/{userId|/relationships/displayRat':
     get:
-      summary: Your GET endpoint
+      summary: "Get a User's display rat"
       tags: []
       responses: {}
     patch:
-      summary: ''
+      summary: "Update a User's display rat"
       responses:
         '200':
           description: OK
@@ -327,21 +418,21 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: "Get a User's user groups"
       tags: []
       responses: {}
     post:
-      summary: ''
+      summary: "Add to a User's user groups"
       responses:
         '200':
           description: OK
     patch:
-      summary: ''
+      summary: "Update a User's user groups"
       responses:
         '200':
           description: OK
     delete:
-      summary: ''
+      summary: "Delete from a User's user groups"
       responses:
         '200':
           description: OK
@@ -352,21 +443,21 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: "Get a User's list of OAuth clients"
       tags: []
       responses: {}
     post:
-      summary: ''
+      summary: "Add to a User's list of OAuth clients"
       responses:
         '200':
           description: OK
     patch:
-      summary: ''
+      summary: "Update a User's list of OAuth clients"
       responses:
         '200':
           description: OK
     delete:
-      summary: ''
+      summary: "Delete from a User's list of OAuth clients"
       responses:
         '200':
           description: OK
