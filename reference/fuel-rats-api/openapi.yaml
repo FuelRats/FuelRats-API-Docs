@@ -1,11 +1,18 @@
 openapi: 3.0.0
 info:
   title: Fuel Rats API
-  version: '1.0'
+  version: '3.0'
+  contact:
+    name: xlexious
+    email: xlexious@fuelrats.com
+  termsOfService: 'https://fuelrats.com/terms-of-service'
+  license:
+    name: BSD 3-Clause
+  description: Documentation for the Fuel Rats API v3.0
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /users/:
+  /users:
     get:
       summary: Your GET endpoint
       tags: []
@@ -33,5 +40,352 @@ paths:
                         - $ref: ./models/nickname.v1.json
                         - $ref: ./models/group.v1.json
                         - $ref: ./models/client.v1.json
+      parameters:
+        - schema:
+            type: string
+          in: header
+        - schema:
+            type: string
+          in: query
+          name: filter
+          description: A JSON encoded search filter query. See the page on search filters for more information
+        - schema:
+            type: integer
+            default: '1'
+            minimum: 1
+          in: query
+          name: 'page[number]'
+          description: 'Page number to view '
+        - schema:
+            type: integer
+            default: '100'
+            maximum: 1000
+            minimum: 1
+          in: query
+          name: 'page[size]'
+          description: Number of results to display per page
+        - schema:
+            type: integer
+            minimum: 0
+            default: '0'
+          in: query
+          name: 'page[offset]'
+          description: The number of results from the beginning of results to skip
+        - schema:
+            type: integer
+            minimum: 1
+            default: '100'
+            maximum: 1000
+          in: query
+          name: 'page[limit]'
+          description: The number of total search results to display
+        - schema:
+            type: string
+            default: createdAt
+          in: query
+          name: sort
+          description: 'Comma seperated list of fields to order results by, ascending by default, prefix a field with - to get descending. Example: -createdAt'
+        - schema:
+            type: string
+          in: query
+          name: include
+          description: 'Sets the relationships for which related data should be included in results, by default all relationships for the object have their data included.'
+        - schema:
+            type: string
+          in: query
+      security:
+        - OAuth:
+            - user.read
+      description: Search for a user
+      operationId: Users.search
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Create a new user. This endpoint is for admin purposes. Otherwise registering users should be done manually via the fuelrats.com website.
+      security:
+        - OAuth:
+            - user.write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                suspended:
+                  type:
+                    - string
+                    - 'null'
+                  format: date-time
+                  example: '2019-10-03T14:00:00+00'
+                  description: Set a user as suspended until a certain timeframe
+                status:
+                  type: string
+                  enum:
+                    - active
+                    - inactive
+                    - legacy
+                    - deactivated
+                  description: "Set a user's account's status. Only available to administrators with user.write permission."
+                password:
+                  type: string
+                  description: "Change a user's password. Changing a user's password directly is only available to administrators with user.write permission. To change a user's own password see PUT /users/:userId/password"
+                email:
+                  type: string
+                  format: email
+                  description: "Change the user's email. Directly changing the email is only available to administrators with user.write permission, for changing a user's own email see PUT /users/:userId/password."
+                data:
+                  type: object
+      operationId: Users.create
+    parameters: []
+  '/users/{userId}':
+    parameters:
+      - type: string
+        name: userId
+        in: path
+        schema:
+          type: string
+          maxLength: 0
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ./models/user.v1.json
+                  meta:
+                    $ref: ./models/meta.v1.json
+                  links:
+                    $ref: ./models/links.v1.json
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: ./models/rat.v1.json
+                        - $ref: ./models/nickname.v1.json
+                        - $ref: ./models/group.v1.json
+                        - $ref: ./models/client.v1.json
+      security:
+        - OAuth:
+            - user.read
+            - user.read.me
+    put:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                email:
+                  type: string
+                  format: email
+                  description: "Change the user's email. Directly changing the email is only available to administrators with user.write permission, for changing a user's own email see PUT /users/:userId/password."
+                password:
+                  type: string
+                  description: "Change a user's password. Changing a user's password directly is only available to administrators with user.write permission. To change a user's own password see PUT /users/:userId/password"
+                status:
+                  type: string
+                  enum:
+                    - active
+                    - inactive
+                    - legacy
+                    - deactivated
+                  description: "Set a user's account's status. Only available to administrators with user.write permission."
+                suspended:
+                  type:
+                    - string
+                    - 'null'
+                  format: date-time
+                  example: '2019-10-03T14:00:00+00'
+                  description: Set a user as suspended until a certain timeframe
+      security:
+        - OAuth:
+            - user.write
+    delete:
+      summary: ''
+      responses:
+        '204':
+          description: No Content
+      security:
+        - OAuth:
+            - user.delete
+  '/users/{userId}/image':
+    parameters:
+      - type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            image/jpeg:
+              schema:
+                type: object
+                properties: {}
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+  '/users/{userId}/certificate':
+    parameters:
+      - type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/x-pem-file:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1: {}
+  '/users/{userId}/password':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    put:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+      security:
+        - OAuth:
+            - user.write
+            - user.write.me
+  '/users/{userId}/relationships/rats':
+    parameters:
+      - type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    patch:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+  '/users/{userId|/relationships/displayRat':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+    patch:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+  '/users/{userId}/relationships/groups':
+    parameters:
+      - type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    patch:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+  '/users/{userId}/relationships/clients':
+    parameters:
+      - type: string
+        name: userId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    patch:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      responses:
+        '200':
+          description: OK
 components:
   schemas: {}
+  securitySchemes:
+    OAuth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'https://fuelrats.com/authorize'
+          refreshUrl: ''
+          scopes: []
+        password:
+          tokenUrl: 'https://api.fuelrats.com/oauth2/token'
+          refreshUrl: ''
+          scopes: []
+        authorizationCode:
+          tokenUrl: 'https://api.fuelrats.com/oauth2/token'
+          refreshUrl: ''
+          scopes: []
+          authorizationUrl: 'https://fuelrats.com/authorize'

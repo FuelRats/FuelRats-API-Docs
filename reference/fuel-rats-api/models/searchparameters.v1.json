@@ -1,0 +1,9 @@
+{
+  "title": "SearchParameters",
+  "type": "object",
+  "properties": {
+    "page[number]": {
+      "type": "integer"
+    }
+  }
+}
