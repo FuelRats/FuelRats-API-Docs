@@ -15,7 +15,8 @@ paths:
   /users:
     get:
       summary: Search Users
-      tags: []
+      tags:
+        - Users
       responses:
         '200':
           description: OK
@@ -40,6 +41,7 @@ paths:
                         - $ref: ./models/nickname.v1.json
                         - $ref: ./models/group.v1.json
                         - $ref: ./models/client.v1.json
+              examples: {}
       parameters:
         - schema:
             type: string
@@ -151,6 +153,8 @@ paths:
                 data:
                   type: object
       operationId: Users.create
+      tags:
+        - Users
     parameters: []
   '/users/{userId}':
     parameters:
@@ -163,7 +167,8 @@ paths:
         required: true
     get:
       summary: View a User
-      tags: []
+      tags:
+        - Users
       responses:
         '200':
           description: OK
@@ -252,6 +257,8 @@ paths:
             - user.write
       description: 'Directly edits a user, only available to admins with the user.write permission.'
       operationId: User.update
+      tags:
+        - Users
     delete:
       summary: Delete a User
       responses:
@@ -262,6 +269,8 @@ paths:
             - user.delete
       description: 'Delete a user, only available to admins with the user.delete permission.'
       operationId: User.delete
+      tags:
+        - Users
   '/users/{userId}/image':
     parameters:
       - type: string
@@ -270,7 +279,8 @@ paths:
         required: true
     get:
       summary: Get the uploaded avatar for a user
-      tags: []
+      tags:
+        - Users
       responses:
         '200':
           description: OK
@@ -328,6 +338,8 @@ paths:
               properties: {}
         description: Upload image data via POST file upload
       operationId: User.setimage
+      tags:
+        - Users
   '/users/{userId}/certificate':
     parameters:
       - type: string
@@ -336,7 +348,8 @@ paths:
         required: true
     get:
       summary: Generate and download Certificate
-      tags: []
+      tags:
+        - Users
       responses:
         '200':
           description: OK
@@ -376,6 +389,8 @@ paths:
             schema:
               type: object
               properties: {}
+      tags:
+        - Users
   '/users/{userId}/relationships/rats':
     parameters:
       - type: string
@@ -384,27 +399,37 @@ paths:
         required: true
     get:
       summary: "Get a User's Rats"
-      tags: []
+      tags:
+        - Users
+        - Relationship
       responses: {}
     post:
       summary: Add Rats to a User
       responses:
         '200':
           description: OK
+      tags:
+        - Users
     patch:
       summary: "Update a User's list of rats"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
     delete:
       summary: Remove rats from a User
       responses:
         '200':
           description: OK
+      tags:
+        - Users
   '/users/{userId|/relationships/displayRat':
     get:
       summary: "Get a User's display rat"
-      tags: []
+      tags:
+        - Users
+        - Relationship
       responses: {}
     patch:
       summary: "Update a User's display rat"
@@ -419,23 +444,31 @@ paths:
         required: true
     get:
       summary: "Get a User's user groups"
-      tags: []
+      tags:
+        - Users
+        - Relationship
       responses: {}
     post:
       summary: "Add to a User's user groups"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
     patch:
       summary: "Update a User's user groups"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
     delete:
       summary: "Delete from a User's user groups"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
   '/users/{userId}/relationships/clients':
     parameters:
       - type: string
@@ -444,18 +477,24 @@ paths:
         required: true
     get:
       summary: "Get a User's list of OAuth clients"
-      tags: []
+      tags:
+        - Users
+        - Relationship
       responses: {}
     post:
       summary: "Add to a User's list of OAuth clients"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
     patch:
       summary: "Update a User's list of OAuth clients"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
     delete:
       summary: "Delete from a User's list of OAuth clients"
       responses:
