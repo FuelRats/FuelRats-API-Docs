@@ -402,6 +402,7 @@ paths:
       tags:
         - Users
         - Relationship
+        - Rats
       responses: {}
     post:
       summary: Add Rats to a User
@@ -410,6 +411,8 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Rats
     patch:
       summary: "Update a User's list of rats"
       responses:
@@ -417,6 +420,8 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Rats
     delete:
       summary: Remove rats from a User
       responses:
@@ -424,18 +429,25 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Rats
   '/users/{userId|/relationships/displayRat':
     get:
       summary: "Get a User's display rat"
       tags:
         - Users
         - Relationship
+        - Rats
       responses: {}
     patch:
       summary: "Update a User's display rat"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
+        - Relationship
+        - Rats
   '/users/{userId}/relationships/groups':
     parameters:
       - type: string
@@ -447,6 +459,7 @@ paths:
       tags:
         - Users
         - Relationship
+        - Groups
       responses: {}
     post:
       summary: "Add to a User's user groups"
@@ -455,6 +468,8 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Groups
     patch:
       summary: "Update a User's user groups"
       responses:
@@ -462,6 +477,8 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Groups
     delete:
       summary: "Delete from a User's user groups"
       responses:
@@ -469,6 +486,8 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Groups
   '/users/{userId}/relationships/clients':
     parameters:
       - type: string
@@ -480,6 +499,7 @@ paths:
       tags:
         - Users
         - Relationship
+        - Clients
       responses: {}
     post:
       summary: "Add to a User's list of OAuth clients"
@@ -488,6 +508,8 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Clients
     patch:
       summary: "Update a User's list of OAuth clients"
       responses:
@@ -495,11 +517,17 @@ paths:
           description: OK
       tags:
         - Users
+        - Relationship
+        - Clients
     delete:
       summary: "Delete from a User's list of OAuth clients"
       responses:
         '200':
           description: OK
+      tags:
+        - Users
+        - Relationship
+        - Clients
 components:
   schemas: {}
   securitySchemes:
