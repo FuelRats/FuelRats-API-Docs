@@ -1,9 +1,112 @@
 {
-  "title": "Nickname",
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "./resource.v1.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "lastQuit": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The nickname's last IRC quit message.\nRead Permission: Public",
+              "example": "Ping Timeout: 180 seconds"
+            },
+            "lastRealHost": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The nickname's last resolved hostname. \nRead Permission: Group",
+              "example": "spacedawg@127.0.0.1"
+            },
+            "lastRealName": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The nickname's last IRC real name.\nRead Permission: Public"
+            },
+            "lastSeen": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date-time",
+              "example": "2019-10-04T10:03:40+00",
+              "description": "Timestamp for when the user was last seen on IRC\nRead Permission: Public"
+            },
+            "lastUserMask": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "example": "D126B986.DC504EA2.91D8FA3B.IP",
+              "description": "The nickname's last known (hashed) usermask\nRead Permission: Public"
+            },
+            "display": {
+              "type": "string",
+              "example": "spacedawg",
+              "description": "The main nickname of the account this nickname belongs to\nRead Permission: Public"
+            },
+            "nick": {
+              "type": "string",
+              "description": "The IRC nickname\nRead Permission: Public",
+              "example": "SpaceDawg"
+            },
+            "createdAt": {
+              "type": "string",
+              "description": "Timestamp for when this nick was created\nRead Permission: Public",
+              "format": "date-time",
+              "example": "2019-10-04T10:03:40+00"
+            },
+            "updatedAt": {
+              "type": "string",
+              "description": "Timestamp for when this nick was last updated\nRead Permission: Public",
+              "format": "date-time",
+              "example": "2019-10-04T10:03:40+00"
+            },
+            "vhost": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "example": "spacedawg.rat.fuelrats.com",
+              "description": "The virtual-host of this nickname\nRead Permission: Public"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "example": "spacedawg@fuelrats.com",
+              "description": "The email address this nickname belongs to\nRead Permission: Group"
+            }
+          },
+          "required": [
+            "nick"
+          ]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "rat": {
+              "$ref": "./relationship.v1.json"
+            },
+            "user": {
+              "$ref": "./relationship.v1.json"
+            }
+          }
+        },
+        "links": {
+          "$ref": "./links.v1.json"
+        }
+      }
     }
-  }
+  ],
+  "title": "Nickname",
+  "description": ""
 }

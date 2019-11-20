@@ -97,8 +97,8 @@ paths:
     post:
       summary: Create User
       responses:
-        '200':
-          description: OK
+        '201':
+          description: Created
           content:
             application/json:
               schema:
@@ -128,30 +128,41 @@ paths:
             schema:
               type: object
               properties:
-                suspended:
-                  type:
-                    - string
-                    - 'null'
-                  format: date-time
-                  example: '2019-10-03T14:00:00+00'
-                  description: Set a user as suspended until a certain timeframe
-                status:
-                  type: string
-                  enum:
-                    - active
-                    - inactive
-                    - legacy
-                    - deactivated
-                  description: "Set a user's account's status. Only available to administrators with user.write permission."
-                password:
-                  type: string
-                  description: "Change a user's password. Changing a user's password directly is only available to administrators with user.write permission. To change a user's own password see PUT /users/:userId/password"
-                email:
-                  type: string
-                  format: email
-                  description: "Change the user's email. Directly changing the email is only available to administrators with user.write permission, for changing a user's own email see PUT /users/:userId/password."
                 data:
                   type: object
+                  properties:
+                    type:
+                      type: string
+                      description: The resource type
+                      example: users
+                    attributes:
+                      type: object
+                      properties:
+                        suspended:
+                          type:
+                            - string
+                            - 'null'
+                          format: date-time
+                          example: '2019-10-03T14:00:00+00'
+                          description: Set a user as suspended until a certain timeframe
+                        data:
+                          type: object
+                          description: Data object capable of holding arbitrary data
+                        email:
+                          type: string
+                          format: email
+                          description: "Change the user's email. Directly changing the email is only available to administrators with user.write permission, for changing a user's own email see PUT /users/:userId/password."
+                        password:
+                          type: string
+                          description: "Change a user's password. Changing a user's password directly is only available to administrators with user.write permission. To change a user's own password see PUT /users/:userId/password"
+                        status:
+                          type: string
+                          enum:
+                            - active
+                            - inactive
+                            - legacy
+                            - deactivated
+                          description: "Set a user's account's status. Only available to administrators with user.write permission."
       operationId: Users.create
       tags:
         - Users
@@ -229,29 +240,39 @@ paths:
               properties:
                 data:
                   type: object
-                  description: Data object capable of holding arbitrary meta information
-                email:
-                  type: string
-                  format: email
-                  description: "Change the user's email. Directly changing the email is only available to administrators with user.write permission, for changing a user's own email see PUT /users/:userId/password."
-                password:
-                  type: string
-                  description: "Change a user's password. Changing a user's password directly is only available to administrators with user.write permission. To change a user's own password see PUT /users/:userId/password"
-                status:
-                  type: string
-                  enum:
-                    - active
-                    - inactive
-                    - legacy
-                    - deactivated
-                  description: "Set a user's account's status. Only available to administrators with user.write permission."
-                suspended:
-                  type:
-                    - string
-                    - 'null'
-                  format: date-time
-                  example: '2019-10-03T14:00:00+00'
-                  description: Set a user as suspended until a certain timeframe
+                  properties:
+                    type:
+                      type: string
+                      description: The resource type
+                      example: users
+                    attributes:
+                      type: object
+                      properties:
+                        suspended:
+                          type:
+                            - string
+                            - 'null'
+                          format: date-time
+                          example: '2019-10-03T14:00:00+00'
+                          description: Set a user as suspended until a certain timeframe
+                        data:
+                          type: object
+                          description: Data object capable of holding arbitrary data
+                        email:
+                          type: string
+                          format: email
+                          description: "Change the user's email. Directly changing the email is only available to administrators with user.write permission, for changing a user's own email see PUT /users/:userId/password."
+                        password:
+                          type: string
+                          description: "Change a user's password. Changing a user's password directly is only available to administrators with user.write permission. To change a user's own password see PUT /users/:userId/password"
+                        status:
+                          type: string
+                          enum:
+                            - active
+                            - inactive
+                            - legacy
+                            - deactivated
+                          description: "Set a user's account's status. Only available to administrators with user.write permission."
       security:
         - OAuth:
             - user.write
@@ -378,6 +399,25 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: ./models/user.v1.json
+                  meta:
+                    $ref: ./models/meta.v1.json
+                  links:
+                    $ref: ./models/links.v1.json
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: ./models/rat.v1.json
+                        - $ref: ./models/nickname.v1.json
+                        - $ref: ./models/group.v1.json
+                        - $ref: ./models/client.v1.json
       security:
         - OAuth:
             - user.write
@@ -388,9 +428,30 @@ paths:
           application/json:
             schema:
               type: object
-              properties: {}
+              properties:
+                type:
+                  type: string
+                  default: password-changes
+                  description: 'Resource type '
+                  example: password-changes
+                attributes:
+                  type: object
+                  required:
+                    - password
+                    - newPassword
+                  properties:
+                    password:
+                      type: string
+                      description: "The user's current password"
+                    newPassword:
+                      type: string
+                      description: "the user's new password"
+              required:
+                - type
+                - attributes
       tags:
         - Users
+      description: "Change a user's password"
   '/users/{userId}/relationships/rats':
     parameters:
       - type: string
@@ -404,6 +465,8 @@ paths:
         - Relationship
         - Rats
       responses: {}
+      description: "Get a list of a user's rat relationships"
+      operationId: User.relationshipRatsView
     post:
       summary: Add Rats to a User
       responses:
@@ -413,6 +476,8 @@ paths:
         - Users
         - Relationship
         - Rats
+      description: "Add to a user's rat relationships"
+      operationId: User.relationshipRatsCreate
     patch:
       summary: "Update a User's list of rats"
       responses:
@@ -422,6 +487,8 @@ paths:
         - Users
         - Relationship
         - Rats
+      operationId: User.relationshipRatsPatch
+      description: "Update (overwrite) a user's rat relationships"
     delete:
       summary: Remove rats from a User
       responses:
@@ -431,6 +498,8 @@ paths:
         - Users
         - Relationship
         - Rats
+      description: "Delete from a user's list of rat relationships"
+      operationId: User.relationshipRatsDelete
   '/users/{userId|/relationships/displayRat':
     get:
       summary: "Get a User's display rat"
@@ -528,6 +597,59 @@ paths:
         - Users
         - Relationship
         - Clients
+  /nicknames:
+    get:
+      summary: Search Nicknames
+      tags: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                included:
+                  type: array
+                  items:
+                    anyOf:
+                      - $ref: ./models/rat.v1.json
+                      - $ref: ./models/user.v1.json
+                links:
+                  $ref: ./models/searchlinks.v1.json
+                meta:
+                  $ref: ./models/searchmeta.v1.json
+                data:
+                  type: array
+                  items:
+                    $ref: ./models/nickname.v1.json
+      description: ''
+      security:
+        - OAuth: []
+    post:
+      summary: Create Nickname
+      responses:
+        '200':
+          description: OK
+  '/nicknames/{nick}':
+    parameters:
+      - type: string
+        name: nick
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      responses:
+        '200':
+          description: OK
 components:
   schemas: {}
   securitySchemes:
