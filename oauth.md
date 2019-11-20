@@ -8,7 +8,13 @@ The OAuth token is provided in REST requests via the HTTP Authorization header f
 If you are for some reason in a situation where you need to make authenticated REST requests but are unable to set HTTP headers yourself, you may also provide the bearer query parameter to authenticate.
 
 ## Create a Client  
-Create a client  
+To be allowed to create an OAuth client you must have the relevant permission enabled on your Fuel Rats account, this is automatically given to any tech rat or administrator, if you are not a tech rat or administrator you may request the permission with a [Fuel Rats Help desk ticket](https://t.fuelr.at/help).
+
+Once you have the required permission, navigate to the [developer area on your Fuel Rats profile](https://fuelrats.com/profile/developer), provide the name of your client and your redirect uri (for information on the redirect uri read the Authorisation section below). 
+When you create your client you will receive a unique client identifier and a client secret code, you **MUST** store these somewhere safely as they cannot be recovered if lost, **if you lose your client credentials and request to have them reset all existing copies of your application will stop working.**
+
+
+
 
 ## Supported Grants  
 
