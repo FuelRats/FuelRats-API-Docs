@@ -1,4 +1,4 @@
-# Scopes / Permissions
+# Scopes / Permissions (WIP)
 
 Fuel Rats permissions are formatted as resource.read/write/delete(.me).
 * The 'resource' is always the singular name of a resource type, such as "rat" or "rescue".  
@@ -72,5 +72,4 @@ client.delete | Delete any OAuth client | Admin, Techrat
 client.read.me | Read your own OAuth client | Verified Users
 client.write.me | Create and modify your own OAuth clients | Developer, Moderator, Admin, Techrat
 client.delete.me | Delete your own OAuth clients | Developer, Moderator, Admin, Techrat
-
 

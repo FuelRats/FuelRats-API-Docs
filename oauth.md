@@ -95,7 +95,7 @@ https:\//yourexampleredirect.com/examplepage?**code**=authorisation_code_here&st
 * **state**: This is the state value you provided in the authorisation page url.
    
 ---
-This is the format for an sunsuccessful grant:  
+This is the format for an unsuccessful grant:  
 
 https:\//yourexampleredirect.com/examplepage?**error**=error_code_here&**error_description**=error_description_here&**state**=your_state_here
 * **error**: An ASCII lower case error identifier code signifying the type of error that caused the grant to fail, for a list of possible options see [The OAuth2 Specification](https://tools.ietf.org/html/rfc6749#section-4.1.2.1).
@@ -200,7 +200,7 @@ https:\//yourexampleredirect.com/examplepage?**access_token**=access_token_here&
 * **state**: This is the state value you provided in the authorisation page url.
    
 ---
-This is the format for an sunsuccessful grant:  
+This is the format for an unsuccessful grant:  
 
 https:\//yourexampleredirect.com/examplepage?**error**=error_code_here&**error_description**=error_description_here&**state**=your_state_here
 * **error**: An ASCII lower case error identifier code signifying the type of error that caused the grant to fail, for a list of possible options see [The OAuth2 Specification](https://tools.ietf.org/html/rfc6749#section-4.2.2.1).
