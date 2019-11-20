@@ -213,5 +213,5 @@ Displays results with an array that is contained by the provided range of values
 Displays results with an array that has overlap with the provided range of values.
 
 ```json
-{ "permissions": { "contained": ["rescue.write", "rat.write","rescue.delete", "user.read"] } }
+{ "permissions": { "overlap": ["rescue.write", "rat.write","rescue.delete", "user.read"] } }
 ```
