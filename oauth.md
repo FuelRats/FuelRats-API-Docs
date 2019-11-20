@@ -27,7 +27,7 @@ It cannot be used in client-side web applications since anyone would be able to 
    
 **Resource Owner Password Credentials** is traditional password based login, except instead of a cookie, the server provides you with an OAuth token. ROPC authentication gives unlimited scope-less access to the user's account and is only available to first-party Fuel Rats applications, attempting to request an ROPC grant using a client-id that has not been whitelisted will result in a 403.
 
-### Authorisation Code
+### Authorization Code
 
     +----------+
     | Resource |
@@ -180,6 +180,34 @@ Implicit grant can be summarised in the following steps:
 * Client-side web application redirects to the fuelrats.com authorisation endpoint listing the name of the application and what it wants access to.
 * The user either approves or rejects the request.
 * The authorisation page redirects back to the URL provided on OAuth Client creation with either a rejection, or an access token.
+
+Implicit Grant follows the same authorisation step as the Authorization Code grant above with a few differences: 
+* Implicit grant can **only** be performed with redirects to web services, not localhost or application URL schemes. Attempting to make an implicit grant request with a redirect_uri that is not an HTTP/HTTPS link to a valid web domain will result in an error. 
+* The value of response_type should be `token` **not** code. 
+* the redirect_uri value **MUST** be the same as the one you provided when registering your OAuth client, unlike Authorization Grants, you cannot define a different redirect uri for implicit grant requests.
+
+#### Authorisation Callback
+
+The authorisation response will be a redirect to your defined redirect uri. 
+
+---
+This is the format for a successful grant:
+
+https:\//yourexampleredirect.com/examplepage?**access_token**=access_token_here&**token_type**=bearer&**scope**=scope&**state**=your_state_Here.
+* **access_token**: This is the bearer access token that your application can use in future requests to make authenticated calls to the Fuel Rats API 
+* **token_type**: the type of token issued, in this case the value will be `bearer`.
+* **scope**: The scopes you have been granted, may be different than the scopes you requested if you could not be granted all the scopes for some reason, or you were granted an additional scope out of necessity. 
+* **state**: This is the state value you provided in the authorisation page url.
+   
+---
+This is the format for an sunsuccessful grant:  
+
+https:\//yourexampleredirect.com/examplepage?**error**=error_code_here&**error_description**=error_description_here&**state**=your_state_here
+* **error**: An ASCII lower case error identifier code signifying the type of error that caused the grant to fail, for a list of possible options see [The OAuth2 Specification](https://tools.ietf.org/html/rfc6749#section-4.2.2.1).
+* **error_description**: A human readable explanation of the error that occured.
+* **state**: This is the state value you provided in the authorisation page url.
+
+---
 
 ### Resource Owner Password Credentials
 
