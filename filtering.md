@@ -127,19 +127,19 @@ Displays results where the item does not match a provided wildcard expression (%
 ```
 
 
-#### ilike
+#### iLike
 Displays results where the item matches a provided wildcard expression (% is the wildcard operator). Case insensitive.
 
 ```json
-{ "system": { "like": "alrai sector %" } }
+{ "system": { "iLike": "alrai sector %" } }
 ```
 
 
-#### notIlike
+#### notILike
 Displays results where the item does not match a provided wildcard expression (% is the wildcard operator). Case insensitive.
 
 ```json
-{ "system": { "like": "alrai sector %" } }
+{ "system": { "notILike": "alrai sector %" } }
 ```
 
 
