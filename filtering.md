@@ -155,7 +155,7 @@ Displays results where the item matches is a string that starts with the provide
 Displays results where the item matches is a string that ends with the provided value.
 
 ```json
-{ "name": { "startsWith": "Pi" } }
+{ "name": { "endsWith": "Pi" } }
 ```
 
 
