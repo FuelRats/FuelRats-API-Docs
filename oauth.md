@@ -230,7 +230,7 @@ https:\//yourexampleredirect.com/examplepage?**error**=error_code_here&**error_d
     +---------+                                  +---------------+
 
 #### **IMPORTANT**
-As implied by the name, Resource Owner Password Credentials grant is only available to first-party Fuel Rats applications. In practice it is only available to the main fuelrats.com website itself, even first party applications are encouraged to use Authorization Code instead. If you attempt to make an ROPC grant request with a non-whitelisted client it will be rejected.
+Resource Owner Password Credentials grant is only available to first-party Fuel Rats applications. In practice it is only available to the main fuelrats.com website itself, even first party applications are encouraged to use Authorization Code instead. If you attempt to make an ROPC grant request with a non-whitelisted client it will be rejected.
 
 
 ROPC can be summarised in the following steps:
