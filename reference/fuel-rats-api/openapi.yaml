@@ -47,7 +47,7 @@ paths:
             type: string
           in: query
           name: filter
-          description: A JSON encoded search filter query. See the page on search filters for more information
+          description: A JSON encoded search filter query. See the page on search filters for more information.
         - schema:
             type: integer
             default: '1'

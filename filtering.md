@@ -28,7 +28,7 @@ Display results where at least one in a list of conditions are met. Allows neste
 Display results where the value is greater than the given value.
 
 ```json
-{ "rescueCount": { gt: 3 } }
+{ "rescueCount": { "gt": 3 } }
 ```
 
 
@@ -36,7 +36,7 @@ Display results where the value is greater than the given value.
 Display results where the value is greater than or equal to the given value.
 
 ```json
-{ "rescueCount": { gte: 4 } }
+{ "rescueCount": { "gte": 4 } }
 ```
 
 
@@ -44,15 +44,15 @@ Display results where the value is greater than or equal to the given value.
 Display results where the value is less than the given value.
 
 ```json
-{ "rescueCount": { lt: 11 } }
+{ "rescueCount": { "lt": 11 } }
 ```
 
 
 #### lte
-Display results where the value is less than or equal to the given value
+Display results where the value is less than or equal to the given value.
 
 ```json
-{ "rescueCount": { lte: 10 } }
+{ "rescueCount": { "lte": 10 } }
 ```
 
 
@@ -60,7 +60,7 @@ Display results where the value is less than or equal to the given value
 Display results where the value is the same as the exact value provided. Does not work for NULL, for that see the is operator.
 
 ```json
-{ "name": { eq: "NumberPi" } }
+{ "name": { "eq": "NumberPi" } }
 ```
 
 
@@ -68,7 +68,7 @@ Display results where the value is the same as the exact value provided. Does no
 Display results where value is anything except the exact value provided. Does not work for NULL, for that see the not operator.
 
 ```json
-{ "name": { ne: "NumberTau" } }
+{ "name": { "ne": "NumberTau" } }
 ```
 
 
@@ -76,7 +76,7 @@ Display results where value is anything except the exact value provided. Does no
 Operator used for checking whether something is null, this exists sperately from the equality operators do to the behaviour of the back-end database.
 
 ```json
-{ "client": { is: null } }
+{ "client": { "is": null } }
 ```
 
 
@@ -84,30 +84,30 @@ Operator used for checking whether something is null, this exists sperately from
 Negates the query within it.
 
 ```json
-{ "client": { not: null } }
+{ "client": { "not": null } }
 ```
 ```json
-{ "outcome": { not: "success" } }
+{ "outcome": { "not": "success" } }
 ```
 
 
 #### in / any
-Displays results where the item is within an array of provided values
+Displays results where the item is within an array of provided values.
 
 ```json
-{ "outcome": { any: ["invalid", "other"] } }
+{ "outcome": { "any": ["invalid", "other"] } }
 ```
 
 ```json
-{ "outcome": { any: ["invalid", "other"] } }
+{ "outcome": { "any": ["invalid", "other"] } }
 ```
 
 
 #### notIn
-Dispalys results where the item is NOT within an array of provided values
+Dispalys results where the item is NOT within an array of provided values.
 
 ```json
-{ "system": { notIn: ["NLTT 48288", "MCC 811", "ASHIMA"] } }
+{ "system": { "notIn": ["NLTT 48288", "MCC 811", "ASHIMA"] } }
 ```
 
 
@@ -115,7 +115,7 @@ Dispalys results where the item is NOT within an array of provided values
 Displays results where the item matches a provided wildcard expression (% is the wildcard operator).
 
 ```json
-{ "system": { like: "ALRAI SECTOR %" } }
+{ "system": { "like": "ALRAI SECTOR %" } }
 ```
 
 
@@ -123,7 +123,7 @@ Displays results where the item matches a provided wildcard expression (% is the
 Displays results where the item does not match a provided wildcard expression (% is the wildcard operator).
 
 ```json
-{ "system": { notLike: "ALRAI SECTOR %" } }
+{ "system": { "notLike": "ALRAI SECTOR %" } }
 ```
 
 
@@ -131,7 +131,7 @@ Displays results where the item does not match a provided wildcard expression (%
 Displays results where the item matches a provided wildcard expression (% is the wildcard operator). Case insensitive.
 
 ```json
-{ "system": { like: "alrai sector %" } }
+{ "system": { "like": "alrai sector %" } }
 ```
 
 
@@ -139,23 +139,23 @@ Displays results where the item matches a provided wildcard expression (% is the
 Displays results where the item does not match a provided wildcard expression (% is the wildcard operator). Case insensitive.
 
 ```json
-{ "system": { like: "alrai sector %" } }
+{ "system": { "like": "alrai sector %" } }
 ```
 
 
 #### startsWith
-Displays results where the item matches is a string that starts with the provided value
+Displays results where the item matches is a string that starts with the provided value.
 
 ```json
-{ "name": { startsWith: "Number" } }
+{ "name": { "startsWith": "Number" } }
 ```
 
 
 #### endsWith
-Displays results where the item matches is a string that ends with the provided value
+Displays results where the item matches is a string that ends with the provided value.
 
 ```json
-{ "name": { startsWith: "Pi" } }
+{ "name": { "startsWith": "Pi" } }
 ```
 
 
@@ -163,7 +163,7 @@ Displays results where the item matches is a string that ends with the provided 
 Displays results where the item matches is a string that has the provided value somewhere within it.
 
 ```json
-{ "system": { substring: "sector" } }
+{ "system": { "substring": "sector" } }
 ```
 
 
@@ -171,47 +171,47 @@ Displays results where the item matches is a string that has the provided value 
 Displays results that matches a provided regular expression.
 
 ```json
-{ "name": { regexp: "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
+{ "name": { "regexp": "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
 ```
 
 #### notRegexp
 Displays results that does NOT match a provided regular expression.
 
 ```json
-{ "name": { notRegexp: "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
+{ "name": { "notRegexp": "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
 ```
 
 #### iRegexp
 Displays results that matches a provided regular expression (case insensitive).
 
 ```json
-{ "name": { iRegexp: "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
+{ "name": { "iRegexp": "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
 ```
 
 #### notIRegexp
 Displays results that does NOT match a provided regular expression (case insensitive).
 
 ```json
-{ "name": { notIRegexp: "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
+{ "name": { "notIRegexp": "\b(num(ber)?|ninja)?(?<!rasp( |-))(?<!raspberry )(pi(-?rat)?(?!-| dhod| dimo| dimshi| disci| hydrae| mensae| pavonis| piscis| sculptoris| piscium))'?s?\b" } }
 ```
 
 #### contains
 Displays results with an array that contains the provided range of values somewhere within it.
 
 ```json
-{ "permissions": { contains: ["rescue.write", "rescue.read"] } }
+{ "permissions": { "contains": ["rescue.write", "rescue.read"] } }
 ```
 
 #### contained
 Displays results with an array that is contained by the provided range of values.
 
 ```json
-{ "permissions": { contained: ["rescue.write", "rat.write","rescue.delete", "user.read"] } }
+{ "permissions": { "contained": ["rescue.write", "rat.write","rescue.delete", "user.read"] } }
 ```
 
 #### overlap
 Displays results with an array that has overlap with the provided range of values.
 
 ```json
-{ "permissions": { contained: ["rescue.write", "rat.write","rescue.delete", "user.read"] } }
+{ "permissions": { "contained": ["rescue.write", "rat.write","rescue.delete", "user.read"] } }
 ```
