@@ -107,7 +107,7 @@ https:\//yourexampleredirect.com/examplepage?**error**=error_code_here&**error_d
 #### Token Exchange
 In the next step you will be making a request to the Fuel Rats API with your authorisation code to verify your client credentials. 
 
-The token exchange shall be made with an HTTP POST request to `https://api.fuelrats.com/oauth2/authorize`.
+The token exchange shall be made with an HTTP POST request to `https://api.fuelrats.com/oauth2/token`.
 The request needs to be authenticated with your OAuth client credentials using [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) in the header of the request.
 This is a base 64 encoded string consisting of a username and password seperated by a colon (:).
 In this instance the username will be the **OAuth Client ID** and the password will be the **OAuth Client Secret**.
@@ -134,7 +134,7 @@ token_type | the type of token issued, in this case the value will be `bearer`. 
 
 ---
 
-If the token exchange is not successful, the ersponse will be an `HTTP 400 Bad Request` with a body in UTF-8 encoded application/json and the following values will be returned in the top level JSON object.
+If the token exchange is not successful, the response will be an `HTTP 400 Bad Request` with a body in UTF-8 encoded application/json and the following values will be returned in the top level JSON object.
 
 Key | Value |
 ---------|----------|
@@ -229,6 +229,56 @@ https:\//yourexampleredirect.com/examplepage?**error**=error_code_here&**error_d
     |         |    (w/ Optional Refresh Token)   |               |
     +---------+                                  +---------------+
 
+#### **IMPORTANT**
+As implied by the name, Resource Owner Password Credentials grant is only available to first-party Fuel Rats applications. In practice it is only available to the main fuelrats.com website itself, even first party applications are encouraged to use Authorization Code instead. If you attempt to make an ROPC grant request with a non-whitelisted client it will be rejected.
+
+
 ROPC can be summarised in the following steps:
 * Application makes a request to the API's OAuth endpoint with its client id, client secret, the user's email, and the user's password.
 * The API provides an OAuth token on successful authentication or rejects with an error.
+
+The authorization request shall be made with an HTTP POST request to `https://api.fuelrats.com/oauth2/token`.
+The request needs to be authenticated with your OAuth client credentials using [HTTP Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) in the header of the request.
+This is a base 64 encoded string consisting of a username and password seperated by a colon (:).
+In this instance the username will be the **OAuth Client ID** and the password will be the **OAuth Client Secret**.
+
+`Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l`
+
+These additional headers are also required in the request:   
+
+Header | Description
+---------|----------|
+X-Fwd-IP | The user's IP address, if not provided the IP of the client making the request is used.
+User-Agent | A string describing the user agent making this request
+X-Fingerprint | A unique fingerprint of the user's client generated using [Fingerprint.js](https://github.com/Valve/fingerprintjs2)
+
+The body of the request should be in a application/x-www-form-urlencoded format and have the following values:
+
+
+Key | Value | 
+---------|----------|
+ grant_type | This is the grant type of the request, for an ROPC grant this value **must** be `password`.    |
+ username | The email address of the Fuel Rats account |
+ password | The password for the Fuel Rats account |
+
+ #### Response
+
+If successful, the response to the request will be an HTTP 200 with a body in UTF-8 encoded application/json and the following values will be returned in the top level JSON object.
+
+Key | Value |
+---------|----------|
+access_token | This is the bearer access token that your application can use in future requests to make authenticated calls to the Fuel Rats API |
+token_type | the type of token issued, in this case the value will be `bearer`. |
+
+----
+
+If the request is unsuccessful because the user agent is an unverified client, a verification email will be sent to the user's email address and the API will respond with an HTTP 403 JSONAPI verification_required error. 
+
+----
+
+If the token exchange is not successful, the response will be an `HTTP 400 Bad Request` with a body in UTF-8 encoded application/json and the following values will be returned in the top level JSON object.
+
+Key | Value |
+---------|----------|
+error | An ASCII lower case error identifier code signifying the type of error that caused the grant to fail, for a list of possible options see [The OAuth2 Specification](https://tools.ietf.org/html/rfc6749#section-5.2). |
+error_description | A human readable explanation of the error that occured. |
