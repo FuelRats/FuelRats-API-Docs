@@ -10,7 +10,8 @@ info:
     name: BSD 3-Clause
   description: Documentation for the Fuel Rats API v3.0
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'https://dev.api.fuelrats.com'
+    description: Fuel Rats Dev API
 paths:
   /users:
     get:
