@@ -12,20 +12,26 @@ Until a beta version of the website front-end with oauth client management is av
 * User Sessions / Login
 * Decals
 * Users
-* Groups (Permissions)
 * Registration
 * Rats
 * Rescues
 * Users
-* Ships
 * Password Reset
 * User Verification
 * Version
 
-### Currently unavailable endpoints and features
-* Epics
-* Webhooks (e.g drill permission update)
-* Announcements (e.g paperwork completed)
-* Storefront
-* Statistics
+
+### Expected Features in Beta 2
+* Ships
 * Websocket
+* Jira/Confluence/Grafana SSO
+* Announcements (e.g paperwork completed)
+
+### Expected Features in Beta 3
+* Groups (Permissions)
+* Webhooks (e.g drill permission update)
+* Statistics
+
+### Expected in a later beta
+* Epics
+* Storefront
