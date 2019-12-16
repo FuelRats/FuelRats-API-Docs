@@ -1,6 +1,6 @@
 # Fuel Rats API v3 Beta
 
-Beta 1 of Fuel Rats API v3 will soon be accessible on dev.api.fuelrats.com
+Beta 1 of Fuel Rats API v3 is now accessible on dev.api.fuelrats.com
 Bugs shall be filed to the [API Jira project](https://jira.fuelrats.com/projects/API/i).
 
 Documentation is available [here](https://docs.fuelrats.dev) (Work in progress).  
