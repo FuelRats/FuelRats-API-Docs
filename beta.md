@@ -5,7 +5,14 @@ Bugs shall be filed to the [API Jira project](https://jira.fuelrats.com/projects
 
 Documentation is available [here](https://docs.fuelrats.dev) (Work in progress).  
 
-Until a beta version of the website front-end with oauth client management is available you may contact xlexious to create a user and OAuth client on the beta API.
+Until a beta version of the website front-end with oauth client management is available you may contact xlexious to create a user and OAuth client on the beta API. Using OAuth with API v3 is detailed in [this document.](oauth.md)
+
+  
+For information about all the available permissions/OAuth scopes, [click here.](scopes.md)  
+
+For information about all possible error codes returned by the API, [click here.](errors.md)
+
+For information on filtering searches in Fuel Rats aPI v3, [click here.](filtering.md)
 
 ### Available endpoints and features in Beta 1
 * Oauth
