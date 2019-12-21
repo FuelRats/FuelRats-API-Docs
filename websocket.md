@@ -10,7 +10,7 @@ The Fuel Rats API sends all traffic encoded in JSON and requires the protocol to
 ## Endpoint Requests
 
 Websocket requests is made in a root JSON array in the following format:
-```json
+```javascript
 [
   state, 
   endpoint, 
@@ -28,7 +28,7 @@ Websocket requests is made in a root JSON array in the following format:
   
 
 Responses are as follows:
-```json
+```javascript
 [
   state, // the state you sent in your request
   status, // HTTP status code
@@ -39,7 +39,7 @@ Responses are as follows:
 
 Here is an example WebSocket request searching for a rescue:
 
-```json
+```javascript
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5",
   ["rescues", "search"],
@@ -58,7 +58,7 @@ Here is an example WebSocket request searching for a rescue:
 ```
 
 And here is a response to this request:
-```json
+```javascript
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5",
   200,
@@ -72,7 +72,7 @@ And here is a response to this request:
 Events are a way for the Fuel Rats API as well as third party applications to share live event updates to listeners over WebSocket.
 
 Events are received in the following format:
-```json
+```javascript
 [
   event,
   sender,
@@ -87,7 +87,7 @@ Events are received in the following format:
 **All authenticated websocket connections receive the default API rescue events. (fuelrats.rescuecreate, fuelrats.rescueupdate, fuelrats.rescuedelete).**
 
 Here is an example of a rescue update event:
-```json
+```javascript
 [
   "fuelrats.rescueupdate",
   "578431ff-fa88-410d-b4b0-5889f622f860",
@@ -99,7 +99,7 @@ Here is an example of a rescue update event:
 
 ### Subscribing to an event
 Subscribing to an event is done by a request as follows:
-```json
+```javascript
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5", // state
   ["events", "subscribe"], // endpoint
@@ -111,7 +111,7 @@ Subscribing to an event is done by a request as follows:
 
 ### Unsubscribing from an event
 Unsubscribing is performed very similarily:
-```json
+```javascript
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5", // state
   ["events", "unsubscribe"], // endpoint
@@ -126,7 +126,7 @@ Broadcasts can be performed via WebSocket OR HTTP (see POST /events/:event)
 
 Here is an example of broadcasting via WebSocket:
 
-```json
+```javascript
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5", // state
   ["events", "broadcast"], // endpoint
