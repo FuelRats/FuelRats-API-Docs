@@ -1,6 +1,6 @@
 # Fuel Rats API v3 Beta
 
-Beta 1 of Fuel Rats API v3 is now accessible on dev.api.fuelrats.com
+Beta 2 of Fuel Rats API v3 is now accessible on dev.api.fuelrats.com
 Bugs shall be filed to the [API Jira project](https://jira.fuelrats.com/projects/API/i).
 
 Documentation is available [here](https://docs.fuelrats.dev) (Work in progress).  
@@ -30,17 +30,17 @@ For information on filtering searches in Fuel Rats aPI v3, [click here.](filteri
 * Version
 
 
-### Expected Features in Beta 2
-* Ships
-* Websocket
-* Jira/Confluence/Grafana SSO
+### Beta 2 changelog
+* Compeleted Ships API
+* Completed WebSocket implementation
+* Added Jira/Confluence/Grafana SSO
 
-### Expected Features in Beta 3
-* Announcements (e.g paperwork completed)
+### Expected Features in Beta 3
+* Server Side Events
+* IRC Announcements (e.g paperwork completed)
 * Groups (Permissions)
-* Webhooks (e.g drill permission update)
 
 ### Expected in a later beta
+* Webhooks (e.g drill permission update)
 * Statistics
 * Epics
-* Storefront
