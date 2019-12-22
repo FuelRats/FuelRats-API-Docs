@@ -103,7 +103,7 @@ Subscribing to an event is done by a request as follows:
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5", // state
   ["events", "subscribe"], // endpoint
-  "query": {
+  {
     "events": ["rattracker.fr", "rattracker.wr"] // events you wish to subscribe to
   }
 ]
@@ -115,7 +115,7 @@ Unsubscribing is performed very similarily:
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5", // state
   ["events", "unsubscribe"], // endpoint
-  "query": {
+  {
     "events": ["rattracker.fr", "rattracker.wr"] // events you wish to unsubscribe from
   }
 ]
@@ -130,7 +130,7 @@ Here is an example of broadcasting via WebSocket:
 [
   "bRploBucQJO2Z3Pwtj0Y0P0ofMYiEjS5", // state
   ["events", "broadcast"], // endpoint
-  "query": {
+  {
     "event": "rattracker.fr" // event you wish to broadcast
   },
   {
