@@ -1,6 +1,6 @@
 # Fuel Rats API v3 Beta
 
-Beta 3 of Fuel Rats API v3 is now accessible on dev.api.fuelrats.com
+Beta 4 of Fuel Rats API v3 is now accessible on dev.api.fuelrats.com
 Bugs shall be filed to the [API Jira project](https://jira.fuelrats.com/projects/API/i).
 
 Documentation is available [here](https://docs.fuelrats.dev) (Work in progress).  
@@ -35,12 +35,12 @@ For information on filtering searches in Fuel Rats aPI v3, [click here.](filteri
 * Completed WebSocket implementation
 * Added Jira/Confluence/Grafana SSO
 
-### Beta 3 Chanelog
+### Beta 3 Changelog
 * Added IRC Announcements (e.g paperwork completed)
 * Added Groups (Permissions) API
 
 
-### Expected in a later beta
-* Webhooks (e.g drill permission update)
+### Beta 4 Changelog
+* Webhooks (e.g drill permission updates)
 * Statistics
 * Epics
