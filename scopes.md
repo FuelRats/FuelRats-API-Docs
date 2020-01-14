@@ -1,6 +1,6 @@
 # Scopes / Permissions (WIP)
 
-Fuel Rats permissions are formatted as resource.read/write/delete(.me).
+Fuel Rats permissions are formatted as resource.read/write(.me).
 * The 'resource' is always the plural name of a resource type, such as "rats" or "rescues".  
 * The "read" identifier gives access to viewing records of a type of resource.
 * The "write" identifier gives access to creating and updating a type of resource. 
