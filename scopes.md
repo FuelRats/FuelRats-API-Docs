@@ -3,8 +3,7 @@
 Fuel Rats permissions are formatted as resource.read/write/delete(.me).
 * The 'resource' is always the singular name of a resource type, such as "rat" or "rescue".  
 * The "read" identifier gives access to viewing records of a type of resource.
-* The "write" identifier gives access to creating and updating a type of resource.
-* The "delete" identifier gievs access to deleting a type of resource.  
+* The "write" identifier gives access to creating and updating a type of resource. 
 
 A permission may be suffixed with ".me" to restrict the permission to only be effective for records that are associated with the user. (For example the user's rescues, the user's rat, the user's account, the user's nicknames).   
 
