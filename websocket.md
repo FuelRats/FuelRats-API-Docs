@@ -1,7 +1,7 @@
 # Websocket
 
-Websocket connections are made to the root uri of the API, e.g `wss://dev.api.fuelrats.com/`.    
-  
+Websocket connections are made to the root uri of the API, e.g `wss://dev.api.fuelrats.com/`.
+
 You may authenticate by providing an OAuth bearer token as a "bearer" parameter of the Websocket URI, e.g `wss://dev.api.fuelrats.com?bearer=7c14277bada1b00e1257ee73bc157c628fb8ea251e762d7c`.
 
 
@@ -12,10 +12,10 @@ The Fuel Rats API sends all traffic encoded in JSON and requires the protocol to
 Websocket requests is made in a root JSON array in the following format:
 ```javascript
 [
-  state, 
-  endpoint, 
+  state,
+  endpoint,
   query,
-  body 
+  body
 ]
 ```
 
@@ -25,7 +25,7 @@ Websocket requests is made in a root JSON array in the following format:
 * **endpoint**: An array pointing to a specific resource you would like to make a request to, this is basically the Websocket API equivalent to a URL, and the WebSocket endpoint equivalent to each endpoint is specified in that endpoint's documentation.
 * **query**: Request query information object, corresponding to the url query parameters you would send in an HTTP request.
 * **body**: The body data of the message, corresponding to the information you would have in the body of an HTTP request.
-  
+
 
 Responses are as follows:
 ```javascript
@@ -76,33 +76,25 @@ Events are received in the following format:
 [
   event,
   sender,
+  resourceId,
   data
 ]
 ```
 
 * **event**: Identifier for the specific event, consisting of a namespace and an event name. The API broadcasts events under the "fuelrats" namespace, to broadcast your own events, you must request that a namespace be assigned to your registered OAuth client.
 * **sender**: Sender of the event (User ID), for third party events this will be the user that sent the broadcast, for API events this will be the user that made the change causing the event (e.g updated a rescue.)
-* **objectId ** : The ID of the object, see `data` for more information.
-* **data**: This data will be an object which content differs depending on the content in question, especially for third party broadcasted events as this is entirely up to the broadcaster.
+* **resourceId** : The ID of the resource, see `data` for more information.
+* **data**: This data will be an resource which content differs depending on the content in question, especially for third party broadcasted events as this is entirely up to the broadcaster.
 
 **All authenticated websocket connections receive the default API rescue events. (fuelrats.rescuecreate, fuelrats.rescueupdate, fuelrats.rescuedelete).**
 
-Here is an example of a rescue update event:
+Here is a sample `fuelrats.rescuecreate` event:
+
 ```javascript
 [
-  "fuelrats.rescueupdate",
-  "578431ff-fa88-410d-b4b0-5889f622f860",
-  {
-    "id": "97a1c9cd-f283-4159-bb77-ad703ab4784b" // ID of the updated rescue
-  }
-]
-```
-here is a sample rescue create event:
-```javascript
-[
-  "fuelrats.rescuecreate",
+  "fuelrats.rescuecreate", // Event name
   "793be7be-c6b5-4160-b7aa-2c6663ffe382", // Sender ID
-  "2963ed46-ef5a-434e-a402-eed165ddd689", // object ID
+  "2963ed46-ef5a-434e-a402-eed165ddd689", // Resource ID
   {
     "jsonapi": {
       "version": "1.0",
@@ -168,7 +160,6 @@ here is a sample rescue create event:
     "included": []
   }
 ]
-
 ```
 
 ### Subscribing to an event
