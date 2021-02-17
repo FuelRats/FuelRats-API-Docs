@@ -24,7 +24,6 @@ For information on filtering searches in Fuel Rats aPI v3, [click here.](filteri
 * Registration
 * Rats
 * Rescues
-* Users
 * Password Reset
 * User Verification
 * Version
