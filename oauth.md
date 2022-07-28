@@ -72,7 +72,7 @@ The authorisation stage consists of displaying the fuelrats.com authorisation pa
 
 The authorisation URL is formatted as follows:  
 
-https\://fuelrats.com/authorization?**response_type**=code&**client_id**=your_client_id&**scope**=your_scope_list&**redirect_uri**=your_redirect_uri&**state**=your_state_variable
+https\://fuelrats.com/authorize?**response_type**=code&**client_id**=your_client_id&**scope**=your_scope_list&**redirect_uri**=your_redirect_uri&**state**=your_state_variable
 
 Parameters:
 * **response_type**: The response type, for Authorization grants this **must** have the value "code".
